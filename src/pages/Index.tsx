@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Calculator, Mail, Calendar, Cloud, Shield, Code, Database, Zap, Users, CheckCircle, Star, TrendingUp, Award, ArrowRight, ArrowDown } from 'lucide-react';
+import { Calculator, Mail, Calendar, Cloud, Shield, Code, Database, Zap, Users, CheckCircle, Star, TrendingUp, Award, ArrowRight, ArrowLeft } from 'lucide-react';
 import CostCalculator from '@/components/CostCalculator';
 import ContactSection from '@/components/ContactSection';
 
@@ -92,7 +91,7 @@ const Index = () => {
             Trusted by 4 Companies Worldwide
           </div>
           <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">
-            Cutting-Edge IT Solutions
+            Delivering Success Stories
           </h2>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
             We utilize cutting-edge technology to create impactful IT solutions that drive business growth - 
@@ -179,7 +178,7 @@ const Index = () => {
             <h3 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Dharesque?</h3>
           </div>
           
-          <div className="max-w-4xl mx-auto mb-20">
+          <div className="max-w-4xl mx-auto mb-32">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="flex items-start space-x-3">
                 <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
@@ -205,12 +204,12 @@ const Index = () => {
           </div>
 
           {/* Our Unique Approach Workflow */}
-          <div className="mb-20">
+          <div className="mb-32">
             <h4 className="text-2xl font-semibold mb-8 text-center">Our Unique Approach</h4>
-            <div className="max-w-5xl mx-auto">
+            <div className="max-w-6xl mx-auto">
               <div className="relative">
-                {/* Workflow Steps */}
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+                {/* Forward Workflow Steps 1-5 */}
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
                   {workflowSteps.map((step, index) => (
                     <div key={step.number} className="relative">
                       <Card className="border-primary/20 bg-background/60 backdrop-blur h-full">
@@ -223,8 +222,8 @@ const Index = () => {
                         </CardContent>
                       </Card>
                       
-                      {/* Arrow to next step (except for last step) */}
-                      {index < workflowSteps.length - 1 && (
+                      {/* Forward arrows between steps 1-4 */}
+                      {index < 4 && (
                         <div className="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
                           <ArrowRight className="w-6 h-6 text-primary" />
                         </div>
@@ -233,14 +232,12 @@ const Index = () => {
                   ))}
                 </div>
                 
-                {/* Feedback Arrow from step 5 to step 4 */}
-                <div className="hidden md:block absolute top-full mt-6">
-                  <div className="flex justify-center items-center">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-32 h-px bg-primary"></div>
-                      <ArrowDown className="w-5 h-5 text-primary transform rotate-180" />
-                      <div className="w-32 h-px bg-primary"></div>
-                    </div>
+                {/* Feedback loop arrow from step 5 back to step 4 */}
+                <div className="hidden md:flex justify-center items-center relative -mt-4">
+                  <div className="absolute right-1/5 flex items-center">
+                    <div className="w-20 h-px bg-primary"></div>
+                    <ArrowLeft className="w-5 h-5 text-primary ml-1" />
+                    <span className="text-xs text-muted-foreground ml-2">Continuous Feedback</span>
                   </div>
                 </div>
               </div>
@@ -322,8 +319,11 @@ const Index = () => {
           <p className="text-muted-foreground mb-4">
             Cutting-edge IT solutions that drive business growth
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground mb-2">
             © 2024 Dharesque Private Limited. All rights reserved.
+          </p>
+          <p className="text-sm text-muted-foreground">
+            GSTIN : 01AAJCD2899N1Z6
           </p>
         </div>
       </footer>
