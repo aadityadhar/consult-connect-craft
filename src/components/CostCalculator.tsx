@@ -125,7 +125,7 @@ const CostCalculator = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {rows.map((row, index) => (
+                {rows.map((row) => (
                   <TableRow key={row.id}>
                     <TableCell>
                       <Select 
@@ -221,14 +221,6 @@ const CostCalculator = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center space-x-2">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={addRow}
-                          className="h-8 px-2 text-muted-foreground hover:text-foreground"
-                        >
-                          <Plus className="h-4 w-4" />
-                        </Button>
                         {rows.length > 1 && (
                           <Button
                             size="sm"
@@ -245,6 +237,17 @@ const CostCalculator = () => {
                 ))}
               </TableBody>
             </Table>
+            
+            <div className="flex justify-start">
+              <Button
+                onClick={addRow}
+                variant="outline"
+                className="flex items-center gap-2"
+              >
+                <Plus className="h-4 w-4" />
+                Add Row
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>
