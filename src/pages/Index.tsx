@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -237,9 +236,9 @@ const Index = () => {
                         </div>
                       )}
                       
-                      {/* Backward arrow from step 5 to 4 */}
+                      {/* Backward arrow from step 5 to 4 positioned below the forward arrow */}
                       {index === 4 && (
-                        <div className="hidden md:block absolute top-1/2 -left-3 transform -translate-y-1/2 z-10">
+                        <div className="hidden md:block absolute top-3/4 -left-3 transform -translate-y-1/2 z-10">
                           <ArrowLeft className="w-6 h-6 text-primary" />
                         </div>
                       )}
