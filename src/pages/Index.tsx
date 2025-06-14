@@ -71,7 +71,7 @@ const Index = () => {
             </div>
             <div>
               <h1 className="text-xl font-bold">DHARESQUE</h1>
-              <p className="text-sm text-muted-foreground">Consulting Services (Est. 2021)</p>
+              <p className="text-sm text-muted-foreground">Consulting Services</p>
             </div>
           </div>
           <nav className="hidden md:flex space-x-6">
@@ -310,22 +310,18 @@ const Index = () => {
 
       {/* Footer */}
       <footer className="bg-muted py-12 px-4 border-t">
-        <div className="container mx-auto text-center">
-          <div className="flex items-center justify-center space-x-3 mb-4">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold">D</span>
+        <div className="container mx-auto">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-lg flex items-center justify-center">
+                <span className="text-primary-foreground font-bold">D</span>
+              </div>
+              <span className="text-lg font-semibold">Dharesque Private Limited</span>
             </div>
-            <span className="text-lg font-semibold">Dharesque Private Limited</span>
+            <p className="text-sm text-muted-foreground">
+              © 2022 Dharesque Private Limited. All rights reserved.
+            </p>
           </div>
-          <p className="text-muted-foreground mb-4">
-            Cutting-edge IT solutions that drive business growth
-          </p>
-          <p className="text-sm text-muted-foreground mb-2">
-            © 2021 Dharesque Private Limited. All rights reserved.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            GSTIN : 01AAJCD2899N1Z6
-          </p>
         </div>
       </footer>
     </div>
