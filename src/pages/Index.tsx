@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -101,11 +100,7 @@ const Index = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button size="lg" className="px-8 shadow-lg">
               <Calculator className="mr-2 h-5 w-5" />
-              Check our Pricing
-            </Button>
-            <Button size="lg" variant="outline" className="px-8">
-              <Mail className="mr-2 h-5 w-5" />
-              Contact Us
+              Explore Pricing
             </Button>
           </div>
           
