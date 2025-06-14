@@ -64,13 +64,6 @@ const MobileNav = () => {
                 ))}
               </div>
             </nav>
-
-            {/* Footer */}
-            <div className="p-6 border-t border-primary-foreground/20 text-center bg-primary">
-              <p className="text-sm text-primary-foreground/80">
-                Ready to get started? Contact us today.
-              </p>
-            </div>
           </div>
         </div>
       )}
