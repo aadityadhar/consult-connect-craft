@@ -29,8 +29,8 @@ const MobileNav = () => {
 
       {/* Full Screen Overlay Menu */}
       {isOpen && (
-        <div className="fixed inset-0 bg-primary z-50 md:hidden overflow-hidden">
-          <div className="flex flex-col h-full w-full bg-primary">
+        <div className="fixed inset-0 bg-primary z-50 md:hidden">
+          <div className="flex flex-col h-full w-full">
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-primary-foreground/20 bg-primary">
               <div className="flex items-center space-x-3">
