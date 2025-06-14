@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,7 +9,7 @@ const ContactSection = () => {
     // - Calendly: https://calendly.com/yourusername
     // - Cal.com: https://cal.com/yourusername
     // - Acuity Scheduling, etc.
-    window.open('https://calendly.com/dharesque', '_blank');
+    window.open('https://calendly.com/contact-dharesque', '_blank');
   };
 
   return (
