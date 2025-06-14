@@ -121,132 +121,127 @@ const CostCalculator = () => {
                   <TableHead>Strength</TableHead>
                   <TableHead>Region</TableHead>
                   <TableHead>Project Duration (months)</TableHead>
+                  <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {rows.map((row, index) => (
-                  <React.Fragment key={row.id}>
-                    <TableRow>
-                      <TableCell>
-                        <Select 
-                          value={row.roleLevel} 
-                          onValueChange={(value) => {
-                            updateRow(row.id, 'roleLevel', value);
-                            updateRow(row.id, 'experienceLevel', ''); // Reset experience when role changes
-                          }}
+                  <TableRow key={row.id}>
+                    <TableCell>
+                      <Select 
+                        value={row.roleLevel} 
+                        onValueChange={(value) => {
+                          updateRow(row.id, 'roleLevel', value);
+                          updateRow(row.id, 'experienceLevel', ''); // Reset experience when role changes
+                        }}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select role" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="junior">Junior Resources</SelectItem>
+                          <SelectItem value="mid">Mid-Level Resources</SelectItem>
+                          <SelectItem value="senior">Senior Level Resources</SelectItem>
+                          <SelectItem value="expert">Subject Matter Experts</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
+                    <TableCell>
+                      <Select 
+                        value={row.experienceLevel} 
+                        onValueChange={(value) => updateRow(row.id, 'experienceLevel', value)}
+                        disabled={!row.roleLevel}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select experience" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {row.roleLevel === 'junior' && (
+                            <>
+                              <SelectItem value="0-1">0-1 years</SelectItem>
+                              <SelectItem value="1-2">1-2 years</SelectItem>
+                              <SelectItem value="2-3">2-3 years</SelectItem>
+                            </>
+                          )}
+                          {row.roleLevel === 'mid' && (
+                            <>
+                              <SelectItem value="4-5">4-5 years</SelectItem>
+                              <SelectItem value="5-7">5-7 years</SelectItem>
+                            </>
+                          )}
+                          {row.roleLevel === 'senior' && (
+                            <>
+                              <SelectItem value="7-10">7-10 years</SelectItem>
+                              <SelectItem value="10+">10+ years</SelectItem>
+                            </>
+                          )}
+                          {row.roleLevel === 'expert' && (
+                            <>
+                              <SelectItem value="10+">10+ years</SelectItem>
+                              <SelectItem value="lead">Lead/Architect level</SelectItem>
+                            </>
+                          )}
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
+                    <TableCell>
+                      <Input
+                        type="number"
+                        min="1"
+                        max="50"
+                        value={row.strength}
+                        onChange={(e) => updateRow(row.id, 'strength', Number(e.target.value))}
+                        className="w-full"
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Select 
+                        value={row.region} 
+                        onValueChange={(value) => updateRow(row.id, 'region', value)}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select region" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="americas">Americas</SelectItem>
+                          <SelectItem value="emea">EMEA</SelectItem>
+                          <SelectItem value="apac">APAC</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
+                    <TableCell>
+                      <Input
+                        type="number"
+                        min="1"
+                        max="24"
+                        value={row.duration}
+                        onChange={(e) => updateRow(row.id, 'duration', Number(e.target.value))}
+                        className="w-full"
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center space-x-2">
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={addRow}
+                          className="h-8 px-2 text-muted-foreground hover:text-foreground"
                         >
-                          <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select role" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="junior">Junior Resources</SelectItem>
-                            <SelectItem value="mid">Mid-Level Resources</SelectItem>
-                            <SelectItem value="senior">Senior Level Resources</SelectItem>
-                            <SelectItem value="expert">Subject Matter Experts</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </TableCell>
-                      <TableCell>
-                        <Select 
-                          value={row.experienceLevel} 
-                          onValueChange={(value) => updateRow(row.id, 'experienceLevel', value)}
-                          disabled={!row.roleLevel}
-                        >
-                          <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select experience" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {row.roleLevel === 'junior' && (
-                              <>
-                                <SelectItem value="0-1">0-1 years</SelectItem>
-                                <SelectItem value="1-2">1-2 years</SelectItem>
-                                <SelectItem value="2-3">2-3 years</SelectItem>
-                              </>
-                            )}
-                            {row.roleLevel === 'mid' && (
-                              <>
-                                <SelectItem value="4-5">4-5 years</SelectItem>
-                                <SelectItem value="5-7">5-7 years</SelectItem>
-                              </>
-                            )}
-                            {row.roleLevel === 'senior' && (
-                              <>
-                                <SelectItem value="7-10">7-10 years</SelectItem>
-                                <SelectItem value="10+">10+ years</SelectItem>
-                              </>
-                            )}
-                            {row.roleLevel === 'expert' && (
-                              <>
-                                <SelectItem value="10+">10+ years</SelectItem>
-                                <SelectItem value="lead">Lead/Architect level</SelectItem>
-                              </>
-                            )}
-                          </SelectContent>
-                        </Select>
-                      </TableCell>
-                      <TableCell>
-                        <Input
-                          type="number"
-                          min="1"
-                          max="50"
-                          value={row.strength}
-                          onChange={(e) => updateRow(row.id, 'strength', Number(e.target.value))}
-                          className="w-full"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Select 
-                          value={row.region} 
-                          onValueChange={(value) => updateRow(row.id, 'region', value)}
-                        >
-                          <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select region" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="americas">Americas</SelectItem>
-                            <SelectItem value="emea">EMEA</SelectItem>
-                            <SelectItem value="apac">APAC</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </TableCell>
-                      <TableCell>
-                        <Input
-                          type="number"
-                          min="1"
-                          max="24"
-                          value={row.duration}
-                          onChange={(e) => updateRow(row.id, 'duration', Number(e.target.value))}
-                          className="w-full"
-                        />
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell colSpan={5} className="py-2 border-0">
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                        {rows.length > 1 && (
                           <Button
                             size="sm"
                             variant="ghost"
-                            onClick={addRow}
+                            onClick={() => removeRow(row.id)}
                             className="h-8 px-2 text-muted-foreground hover:text-foreground"
                           >
-                            <Plus className="h-4 w-4 mr-1" />
-                            Add Row
+                            <Minus className="h-4 w-4" />
                           </Button>
-                          {rows.length > 1 && (
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() => removeRow(row.id)}
-                              className="h-8 px-2 text-muted-foreground hover:text-foreground"
-                            >
-                              <Minus className="h-4 w-4 mr-1" />
-                              Remove
-                            </Button>
-                          )}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  </React.Fragment>
+                        )}
+                      </div>
+                    </TableCell>
+                  </TableRow>
                 ))}
               </TableBody>
             </Table>
