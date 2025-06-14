@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -57,7 +56,7 @@ const Index = () => {
           </div>
           <nav className="hidden md:flex space-x-6">
             <a href="#services" className="text-sm font-medium hover:text-primary transition-colors">Services</a>
-            <a href="#calculator" className="text-sm font-medium hover:text-primary transition-colors">Cost Calculator</a>
+            <a href="#pricing" className="text-sm font-medium hover:text-primary transition-colors">Pricing</a>
             <a href="#about" className="text-sm font-medium hover:text-primary transition-colors">About</a>
             <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">Contact</a>
           </nav>
@@ -112,11 +111,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Cost Calculator */}
-      <section id="calculator" className="py-20 px-4">
+      {/* Pricing */}
+      <section id="pricing" className="py-20 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4">Project Cost Calculator</h3>
+            <h3 className="text-3xl md:text-4xl font-bold mb-4">Pricing</h3>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Get an instant estimate for your project based on team size and expertise level
             </p>
@@ -131,6 +130,15 @@ const Index = () => {
           <div className="text-center mb-16">
             <h3 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Dharesque?</h3>
           </div>
+          
+          {/* Cost Benefits */}
+          <div className="mb-12">
+            <h4 className="text-2xl font-semibold mb-6 text-center">Cost-Effective Remote Solutions</h4>
+            <p className="text-muted-foreground text-center max-w-3xl mx-auto">
+              While all remote teams reduce overhead costs and eliminate hidden expenses ensuring that your projects are delivered with lower costs, here's what sets us apart:
+            </p>
+          </div>
+          
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h4 className="text-2xl font-semibold mb-6">Our Unique Approach</h4>
@@ -159,12 +167,6 @@ const Index = () => {
                     Weekly check-ins ensure project quality and client satisfaction
                   </p>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
-                  <p className="text-muted-foreground">
-                    Remote teams reduce overhead costs and eliminate hidden expenses
-                  </p>
-                </div>
               </div>
             </div>
             <div>
@@ -175,15 +177,9 @@ const Index = () => {
                 <CardContent>
                   <div className="space-y-4">
                     <div>
-                      <h5 className="font-semibold">3+ Years with Outsystems, Portugal</h5>
+                      <h5 className="font-semibold">4+ Years with Outsystems</h5>
                       <p className="text-muted-foreground text-sm">
                         Long-term partnership building and maintaining infrastructure
-                      </p>
-                    </div>
-                    <div>
-                      <h5 className="font-semibold">2+ Years with Indian Companies</h5>
-                      <p className="text-muted-foreground text-sm">
-                        Successful annual contracts with periodic renewals and uplifts
                       </p>
                     </div>
                     <div className="pt-2">
@@ -220,14 +216,14 @@ const Index = () => {
                 <span className="text-2xl font-bold text-primary">🏢</span>
               </div>
               <h4 className="font-semibold mb-2">India Headquarters</h4>
-              <p className="text-muted-foreground text-sm">Based in India with local expertise</p>
+              <p className="text-muted-foreground text-sm">Based in India with expertise sourced globally</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold text-primary">🤝</span>
               </div>
-              <h4 className="font-semibold mb-2">On-Premises Option</h4>
-              <p className="text-muted-foreground text-sm">Available when required</p>
+              <h4 className="font-semibold mb-2">Customer Centric</h4>
+              <p className="text-muted-foreground text-sm">Customer centric with services available on-premises as required</p>
             </div>
           </div>
         </div>

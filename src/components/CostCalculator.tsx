@@ -10,47 +10,16 @@ import { Calculator, ExternalLink } from 'lucide-react';
 const CostCalculator = () => {
   const [juniorCount, setJuniorCount] = useState(0);
   const [midCount, setMidCount] = useState(0);
+  const [seniorCount, setSeniorCount] = useState(0);
   const [smeCount, setSmeCount] = useState(0);
   const [duration, setDuration] = useState(1);
   const [showResults, setShowResults] = useState(false);
 
-  const rates = {
-    junior: { min: 20, max: 50 },
-    mid: { min: 60, max: 100 },
-    sme: { min: 100, max: 200 }
-  };
-
-  const calculateCost = () => {
-    const hoursPerMonth = 160; // ~40 hours/week * 4 weeks
-    
-    const juniorCost = {
-      min: juniorCount * rates.junior.min * hoursPerMonth * duration,
-      max: juniorCount * rates.junior.max * hoursPerMonth * duration
-    };
-    
-    const midCost = {
-      min: midCount * rates.mid.min * hoursPerMonth * duration,
-      max: midCount * rates.mid.max * hoursPerMonth * duration
-    };
-    
-    const smeCost = {
-      min: smeCount * rates.sme.min * hoursPerMonth * duration,
-      max: smeCount * rates.sme.max * hoursPerMonth * duration
-    };
-    
-    const totalMin = juniorCost.min + midCost.min + smeCost.min;
-    const totalMax = juniorCost.max + midCost.max + smeCost.max;
-    
-    return { totalMin, totalMax, juniorCost, midCost, smeCost };
-  };
-
   const handleCalculate = () => {
-    if (juniorCount + midCount + smeCount > 0) {
+    if (juniorCount + midCount + seniorCount + smeCount > 0) {
       setShowResults(true);
     }
   };
-
-  const results = showResults ? calculateCost() : null;
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -65,7 +34,7 @@ const CostCalculator = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             <div className="space-y-2">
               <Label htmlFor="junior">Junior Resources</Label>
               <Input
@@ -76,7 +45,6 @@ const CostCalculator = () => {
                 onChange={(e) => setJuniorCount(Number(e.target.value))}
                 placeholder="0"
               />
-              <p className="text-xs text-muted-foreground">$20-50/hour</p>
             </div>
             
             <div className="space-y-2">
@@ -89,7 +57,18 @@ const CostCalculator = () => {
                 onChange={(e) => setMidCount(Number(e.target.value))}
                 placeholder="0"
               />
-              <p className="text-xs text-muted-foreground">$60-100/hour</p>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="senior">Senior Level Resources</Label>
+              <Input
+                id="senior"
+                type="number"
+                min="0"
+                value={seniorCount}
+                onChange={(e) => setSeniorCount(Number(e.target.value))}
+                placeholder="0"
+              />
             </div>
             
             <div className="space-y-2">
@@ -102,7 +81,6 @@ const CostCalculator = () => {
                 onChange={(e) => setSmeCount(Number(e.target.value))}
                 placeholder="0"
               />
-              <p className="text-xs text-muted-foreground">$100-200/hour</p>
             </div>
             
             <div className="space-y-2">
@@ -126,21 +104,18 @@ const CostCalculator = () => {
             Calculate Estimated Cost
           </Button>
           
-          {results && (
+          {showResults && (
             <div className="mt-8 space-y-4">
               <div className="border-t pt-6">
-                <h4 className="text-lg font-semibold mb-4">Cost Breakdown</h4>
+                <h4 className="text-lg font-semibold mb-4">Team Summary</h4>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                   <Card className="border-primary/20">
                     <CardContent className="p-4">
                       <div className="text-center">
-                        <p className="text-sm text-muted-foreground mb-1">Estimated Range</p>
+                        <p className="text-sm text-muted-foreground mb-1">Project Duration</p>
                         <p className="text-2xl font-bold text-primary">
-                          ${results.totalMin.toLocaleString()} - ${results.totalMax.toLocaleString()}
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          For {duration} {duration === 1 ? 'month' : 'months'}
+                          {duration} {duration === 1 ? 'Month' : 'Months'}
                         </p>
                       </div>
                     </CardContent>
@@ -151,7 +126,7 @@ const CostCalculator = () => {
                       <div className="text-center">
                         <p className="text-sm text-muted-foreground mb-1">Total Team Size</p>
                         <p className="text-2xl font-bold">
-                          {juniorCount + midCount + smeCount}
+                          {juniorCount + midCount + seniorCount + smeCount}
                         </p>
                         <p className="text-xs text-muted-foreground mt-1">
                           Resources
@@ -161,25 +136,27 @@ const CostCalculator = () => {
                   </Card>
                 </div>
                 
-                {(juniorCount > 0 || midCount > 0 || smeCount > 0) && (
+                {(juniorCount > 0 || midCount > 0 || seniorCount > 0 || smeCount > 0) && (
                   <div className="space-y-2">
-                    <h5 className="font-medium">Detailed Breakdown:</h5>
+                    <h5 className="font-medium">Team Composition:</h5>
                     {juniorCount > 0 && (
                       <div className="flex justify-between text-sm">
                         <span>{juniorCount} Junior Resource{juniorCount > 1 ? 's' : ''}</span>
-                        <span>${results.juniorCost.min.toLocaleString()} - ${results.juniorCost.max.toLocaleString()}</span>
                       </div>
                     )}
                     {midCount > 0 && (
                       <div className="flex justify-between text-sm">
                         <span>{midCount} Mid-Level Resource{midCount > 1 ? 's' : ''}</span>
-                        <span>${results.midCost.min.toLocaleString()} - ${results.midCost.max.toLocaleString()}</span>
+                      </div>
+                    )}
+                    {seniorCount > 0 && (
+                      <div className="flex justify-between text-sm">
+                        <span>{seniorCount} Senior Level Resource{seniorCount > 1 ? 's' : ''}</span>
                       </div>
                     )}
                     {smeCount > 0 && (
                       <div className="flex justify-between text-sm">
                         <span>{smeCount} SME{smeCount > 1 ? 's' : ''}</span>
-                        <span>${results.smeCost.min.toLocaleString()} - ${results.smeCost.max.toLocaleString()}</span>
                       </div>
                     )}
                   </div>
