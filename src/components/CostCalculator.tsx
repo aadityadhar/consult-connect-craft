@@ -5,35 +5,22 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Calculator, TrendingDown, MapPin, Users, Clock } from 'lucide-react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Calculator, Plus, Minus } from 'lucide-react';
+
+interface ProjectRow {
+  id: string;
+  roleLevel: string;
+  experienceLevel: string;
+  strength: number;
+  region: string;
+  duration: number;
+}
 
 const CostCalculator = () => {
-  const [teamSize, setTeamSize] = useState(1);
-  const [role, setRole] = useState('');
-  const [experience, setExperience] = useState('');
-  const [region, setRegion] = useState('');
-  const [duration, setDuration] = useState(1);
-
-  // Our internal rates (not shown to users)
-  const ourRates = {
-    'junior': {
-      '0-1': 10,
-      '1-2': 15,
-      '2-3': 20
-    },
-    'mid': {
-      '4-5': 30,
-      '5-7': 40
-    },
-    'senior': {
-      '7-10': 50,
-      '10+': 75
-    },
-    'expert': {
-      '10+': 75,
-      'lead': 100
-    }
-  };
+  const [rows, setRows] = useState<ProjectRow[]>([
+    { id: '1', roleLevel: '', experienceLevel: '', strength: 1, region: '', duration: 1 }
+  ]);
 
   // Market rates by region for comparison
   const marketRates = {
@@ -57,31 +44,63 @@ const CostCalculator = () => {
     }
   };
 
-  const calculateCost = () => {
-    if (!role || !experience || !region) return null;
+  const addRow = () => {
+    const newRow: ProjectRow = {
+      id: Date.now().toString(),
+      roleLevel: '',
+      experienceLevel: '',
+      strength: 1,
+      region: '',
+      duration: 1
+    };
+    setRows([...rows, newRow]);
+  };
 
-    const ourRate = ourRates[role as keyof typeof ourRates]?.[experience as keyof typeof ourRates['junior']];
-    const marketRate = marketRates[region as keyof typeof marketRates]?.[role as keyof typeof marketRates['americas']]?.[experience as keyof typeof marketRates['americas']['junior']];
+  const removeRow = (id: string) => {
+    if (rows.length > 1) {
+      setRows(rows.filter(row => row.id !== id));
+    }
+  };
 
-    if (!ourRate || !marketRate) return null;
+  const updateRow = (id: string, field: keyof ProjectRow, value: string | number) => {
+    setRows(rows.map(row => 
+      row.id === id ? { ...row, [field]: value } : row
+    ));
+  };
 
-    const monthlyHours = 160; // Standard work month
-    const ourMonthlyCost = ourRate * monthlyHours * teamSize;
-    const marketMonthlyCost = marketRate * monthlyHours * teamSize;
-    const totalCost = ourMonthlyCost * duration;
-    const marketTotalCost = marketMonthlyCost * duration;
-    const savings = marketTotalCost - totalCost;
-    const savingsPercentage = ((savings / marketTotalCost) * 100).toFixed(0);
+  const calculateTotalCost = () => {
+    let totalMarketCost = 0;
+    let totalOurCost = 0;
+
+    rows.forEach(row => {
+      if (row.roleLevel && row.experienceLevel && row.region) {
+        const marketRate = marketRates[row.region as keyof typeof marketRates]?.[row.roleLevel as keyof typeof marketRates['americas']]?.[row.experienceLevel as keyof typeof marketRates['americas']['junior']];
+        
+        if (marketRate) {
+          const monthlyHours = 160;
+          const rowMarketCost = marketRate * monthlyHours * row.strength * row.duration;
+          totalMarketCost += rowMarketCost;
+          
+          // Our rates are significantly lower (rough estimate for calculation)
+          const ourRate = marketRate * 0.4; // Approximately 60% savings
+          const rowOurCost = ourRate * monthlyHours * row.strength * row.duration;
+          totalOurCost += rowOurCost;
+        }
+      }
+    });
+
+    const savings = totalMarketCost - totalOurCost;
+    const savingsPercentage = totalMarketCost > 0 ? ((savings / totalMarketCost) * 100).toFixed(0) : '0';
 
     return {
-      totalCost,
-      marketTotalCost,
+      totalMarketCost,
+      totalOurCost,
       savings,
       savingsPercentage
     };
   };
 
-  const results = calculateCost();
+  const results = calculateTotalCost();
 
   const getRoleLabel = (roleKey: string) => {
     const labels = {
@@ -117,7 +136,7 @@ const CostCalculator = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-6xl mx-auto">
       <Card className="mb-8">
         <CardHeader>
           <CardTitle className="flex items-center text-2xl">
@@ -126,181 +145,160 @@ const CostCalculator = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="space-y-2">
-              <Label>Team Size</Label>
-              <div className="flex items-center space-x-2">
-                <Users className="h-4 w-4 text-muted-foreground" />
-                <Input
-                  type="number"
-                  min="1"
-                  max="50"
-                  value={teamSize}
-                  onChange={(e) => setTeamSize(Number(e.target.value))}
-                  className="flex-1"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label>Role Level</Label>
-              <Select value={role} onValueChange={setRole}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select role level" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="junior">Junior Resources</SelectItem>
-                  <SelectItem value="mid">Mid-Level Resources</SelectItem>
-                  <SelectItem value="senior">Senior Level Resources</SelectItem>
-                  <SelectItem value="expert">Subject Matter Experts</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label>Experience Level</Label>
-              <Select value={experience} onValueChange={setExperience} disabled={!role}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select experience" />
-                </SelectTrigger>
-                <SelectContent>
-                  {role === 'junior' && (
-                    <>
-                      <SelectItem value="0-1">0-1 years</SelectItem>
-                      <SelectItem value="1-2">1-2 years</SelectItem>
-                      <SelectItem value="2-3">2-3 years</SelectItem>
-                    </>
-                  )}
-                  {role === 'mid' && (
-                    <>
-                      <SelectItem value="4-5">4-5 years</SelectItem>
-                      <SelectItem value="5-7">5-7 years</SelectItem>
-                    </>
-                  )}
-                  {role === 'senior' && (
-                    <>
-                      <SelectItem value="7-10">7-10 years</SelectItem>
-                      <SelectItem value="10+">10+ years</SelectItem>
-                    </>
-                  )}
-                  {role === 'expert' && (
-                    <>
-                      <SelectItem value="10+">10+ years</SelectItem>
-                      <SelectItem value="lead">Lead/Architect level</SelectItem>
-                    </>
-                  )}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label>Region</Label>
-              <div className="flex items-center space-x-2">
-                <MapPin className="h-4 w-4 text-muted-foreground" />
-                <Select value={region} onValueChange={setRegion}>
-                  <SelectTrigger className="flex-1">
-                    <SelectValue placeholder="Select region" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="americas">Americas</SelectItem>
-                    <SelectItem value="emea">EMEA</SelectItem>
-                    <SelectItem value="apac">APAC</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label>Project Duration (months)</Label>
-              <div className="flex items-center space-x-2">
-                <Clock className="h-4 w-4 text-muted-foreground" />
-                <Input
-                  type="number"
-                  min="1"
-                  max="24"
-                  value={duration}
-                  onChange={(e) => setDuration(Number(e.target.value))}
-                  className="flex-1"
-                />
-              </div>
-            </div>
+          <div className="space-y-4">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Role Level</TableHead>
+                  <TableHead>Experience Level</TableHead>
+                  <TableHead>Strength</TableHead>
+                  <TableHead>Region</TableHead>
+                  <TableHead>Project Duration (months)</TableHead>
+                  <TableHead className="w-[100px]">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell>
+                      <Select 
+                        value={row.roleLevel} 
+                        onValueChange={(value) => {
+                          updateRow(row.id, 'roleLevel', value);
+                          updateRow(row.id, 'experienceLevel', ''); // Reset experience when role changes
+                        }}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select role" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="junior">Junior Resources</SelectItem>
+                          <SelectItem value="mid">Mid-Level Resources</SelectItem>
+                          <SelectItem value="senior">Senior Level Resources</SelectItem>
+                          <SelectItem value="expert">Subject Matter Experts</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
+                    <TableCell>
+                      <Select 
+                        value={row.experienceLevel} 
+                        onValueChange={(value) => updateRow(row.id, 'experienceLevel', value)}
+                        disabled={!row.roleLevel}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select experience" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {row.roleLevel === 'junior' && (
+                            <>
+                              <SelectItem value="0-1">0-1 years</SelectItem>
+                              <SelectItem value="1-2">1-2 years</SelectItem>
+                              <SelectItem value="2-3">2-3 years</SelectItem>
+                            </>
+                          )}
+                          {row.roleLevel === 'mid' && (
+                            <>
+                              <SelectItem value="4-5">4-5 years</SelectItem>
+                              <SelectItem value="5-7">5-7 years</SelectItem>
+                            </>
+                          )}
+                          {row.roleLevel === 'senior' && (
+                            <>
+                              <SelectItem value="7-10">7-10 years</SelectItem>
+                              <SelectItem value="10+">10+ years</SelectItem>
+                            </>
+                          )}
+                          {row.roleLevel === 'expert' && (
+                            <>
+                              <SelectItem value="10+">10+ years</SelectItem>
+                              <SelectItem value="lead">Lead/Architect level</SelectItem>
+                            </>
+                          )}
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
+                    <TableCell>
+                      <Input
+                        type="number"
+                        min="1"
+                        max="50"
+                        value={row.strength}
+                        onChange={(e) => updateRow(row.id, 'strength', Number(e.target.value))}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Select 
+                        value={row.region} 
+                        onValueChange={(value) => updateRow(row.id, 'region', value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select region" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="americas">Americas</SelectItem>
+                          <SelectItem value="emea">EMEA</SelectItem>
+                          <SelectItem value="apac">APAC</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
+                    <TableCell>
+                      <Input
+                        type="number"
+                        min="1"
+                        max="24"
+                        value={row.duration}
+                        onChange={(e) => updateRow(row.id, 'duration', Number(e.target.value))}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex space-x-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={addRow}
+                        >
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                        {rows.length > 1 && (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => removeRow(row.id)}
+                          >
+                            <Minus className="h-4 w-4" />
+                          </Button>
+                        )}
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
         </CardContent>
       </Card>
 
-      {results && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card className="border-primary/20 bg-gradient-to-br from-background to-muted/20">
-            <CardHeader>
-              <CardTitle className="text-xl">Cost Comparison</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="p-4 bg-muted/50 rounded-lg">
-                  <div className="text-sm text-muted-foreground mb-1">Regional Market Rate ({getRegionLabel(region)})</div>
-                  <div className="text-2xl font-bold">${results.marketTotalCost.toLocaleString()}</div>
-                </div>
-                <div className="p-4 bg-primary/10 rounded-lg border border-primary/20">
-                  <div className="text-sm text-primary mb-1">Your Savings with Dharesque</div>
-                  <div className="text-2xl font-bold text-primary">
-                    ${results.savings.toLocaleString()} ({results.savingsPercentage}% less)
-                  </div>
+      {results.totalMarketCost > 0 && (
+        <Card className="border-primary/20 bg-gradient-to-br from-background to-muted/20">
+          <CardHeader>
+            <CardTitle className="text-xl">Cost Comparison</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-4 bg-muted/50 rounded-lg">
+                <div className="text-sm text-muted-foreground mb-1">Regional Market Rate</div>
+                <div className="text-2xl font-bold">${results.totalMarketCost.toLocaleString()}</div>
+              </div>
+              <div className="p-4 bg-primary/10 rounded-lg border border-primary/20">
+                <div className="text-sm text-primary mb-1">Your Savings with Dharesque</div>
+                <div className="text-2xl font-bold text-primary">
+                  ${results.savings.toLocaleString()} ({results.savingsPercentage}% less)
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl">Project Configuration</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Team Size:</span>
-                  <span className="font-medium">{teamSize} {teamSize === 1 ? 'person' : 'people'}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Role:</span>
-                  <span className="font-medium">{getRoleLabel(role)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Experience:</span>
-                  <span className="font-medium">{getExperienceLabel(experience)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Region:</span>
-                  <span className="font-medium">{getRegionLabel(region)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Duration:</span>
-                  <span className="font-medium">{duration} {duration === 1 ? 'month' : 'months'}</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+          </CardContent>
+        </Card>
       )}
-
-      <Card className="mt-6 bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
-        <CardContent className="p-6">
-          <div className="flex items-start space-x-3">
-            <TrendingDown className="h-6 w-6 text-primary mt-1" />
-            <div>
-              <h4 className="font-semibold text-lg mb-2">Why Choose Dharesque?</h4>
-              <p className="text-muted-foreground mb-3">
-                Get the same quality of work at significantly lower costs compared to regional market rates.
-              </p>
-              <ul className="text-sm space-y-1 text-muted-foreground">
-                <li>• No hidden fees or overhead costs</li>
-                <li>• Direct access to skilled professionals</li>
-                <li>• Flexible engagement models</li>
-                <li>• 24/7 support available</li>
-              </ul>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 };

@@ -1,7 +1,8 @@
+
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Calculator, Mail, Calendar, Cloud, Shield, Code, Database, Zap, Users, CheckCircle, Star, TrendingUp, Award } from 'lucide-react';
+import { Calculator, Mail, Calendar, Cloud, Shield, Code, Database, Zap, Users, CheckCircle, Star, TrendingUp, Award, ArrowRight } from 'lucide-react';
 import CostCalculator from '@/components/CostCalculator';
 import ContactSection from '@/components/ContactSection';
 
@@ -50,6 +51,14 @@ const Index = () => {
     { number: "4+", label: "Years Experience", icon: Star },
     { number: "98%", label: "Client Satisfaction", icon: TrendingUp },
     { number: "24/7", label: "Support Available", icon: Award }
+  ];
+
+  const workflowSteps = [
+    { number: 1, title: "Stakeholder Connection", description: "We connect with stakeholders first to understand exact requirements" },
+    { number: 2, title: "Expert Screening", description: "Our SMEs interview and screen candidates according to client specifications" },
+    { number: 3, title: "Client Interview", description: "Clients interview selected candidates to ensure perfect team fit" },
+    { number: 4, title: "Resource Allocation", description: "Resources are allocated to the client where they report to the stakeholders and ensure their requirements are being fulfilled" },
+    { number: 5, title: "Continuous Engagement", description: "Our administrators engage with your stakeholders on a weekly basis to ensure this process is consistently followed, fostering collaboration and alignment" }
   ];
 
   return (
@@ -163,70 +172,97 @@ const Index = () => {
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 px-4">
+      {/* Why Choose Dharesque */}
+      <section className="py-20 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <h3 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Dharesque?</h3>
           </div>
           
-          {/* Cost Benefits */}
-          <div className="mb-12">
-            <h4 className="text-2xl font-semibold mb-6 text-center">Cost-Effective Remote Solutions</h4>
-            <p className="text-muted-foreground text-center max-w-3xl mx-auto">
-              While all remote teams reduce overhead costs and eliminate hidden expenses ensuring that your projects are delivered with lower costs, here's what sets us apart:
-            </p>
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+              <div className="flex items-start space-x-3">
+                <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                <p className="text-muted-foreground">No hidden fees or overhead costs</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                <p className="text-muted-foreground">Direct access to skilled professionals</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                <p className="text-muted-foreground">Tailored high-performance, optimized, and clean solutions</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                <p className="text-muted-foreground">Flexible engagement models</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                <p className="text-muted-foreground">24/7 support available</p>
+              </div>
+            </div>
           </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h4 className="text-2xl font-semibold mb-6">Our Unique Approach</h4>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
-                  <p className="text-muted-foreground">
-                    We connect with stakeholders first to understand exact requirements
-                  </p>
+
+          {/* Our Unique Approach Workflow */}
+          <div className="mb-16">
+            <h4 className="text-2xl font-semibold mb-8 text-center">Our Unique Approach</h4>
+            <div className="max-w-5xl mx-auto">
+              <div className="relative">
+                {/* Workflow Steps */}
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+                  {workflowSteps.map((step, index) => (
+                    <div key={step.number} className="relative">
+                      <Card className="border-primary/20 bg-background/60 backdrop-blur h-full">
+                        <CardContent className="p-4 text-center">
+                          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold mx-auto mb-3">
+                            {step.number}
+                          </div>
+                          <h5 className="font-semibold text-sm mb-2">{step.title}</h5>
+                          <p className="text-xs text-muted-foreground">{step.description}</p>
+                        </CardContent>
+                      </Card>
+                      
+                      {/* Arrow to next step (except for last step) */}
+                      {index < workflowSteps.length - 1 && (
+                        <div className="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
+                          <ArrowRight className="w-6 h-6 text-primary" />
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
-                  <p className="text-muted-foreground">
-                    Our SMEs interview and screen candidates according to client specifications
-                  </p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
-                  <p className="text-muted-foreground">
-                    Clients interview selected candidates to ensure perfect team fit
-                  </p>
+                
+                {/* Feedback Loop Arrow (from step 5 to step 4) */}
+                <div className="hidden md:block absolute top-full mt-4 left-0 right-0">
+                  <div className="flex justify-between items-center max-w-5xl mx-auto px-8">
+                    <div className="w-3/5"></div>
+                    <div className="flex items-center text-primary text-sm">
+                      <span className="mr-2">Continuous feedback loop</span>
+                      <ArrowRight className="w-4 h-4 transform rotate-180" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div>
-              <Card className="border-primary/20 bg-gradient-to-br from-background to-muted/20">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Award className="w-5 h-5 mr-2 text-primary" />
-                    Notable Achievements
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <h5 className="font-semibold">4+ Years with Outsystems</h5>
-                      <p className="text-muted-foreground text-sm">
-                        Long-term partnership building and maintaining infrastructure
-                      </p>
-                    </div>
-                    <div className="pt-2">
-                      <p className="text-sm font-medium text-primary">
-                        Flexible 1-year contracts with 1-month notice period
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+          </div>
+
+          {/* Notable Achievements */}
+          <div className="text-center">
+            <h4 className="text-2xl font-semibold mb-6">Notable Achievements</h4>
+            <Card className="border-primary/20 bg-gradient-to-br from-background to-muted/20 max-w-md mx-auto">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-center">
+                  <Award className="w-5 h-5 mr-2 text-primary" />
+                  4+ Years with Outsystems
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">
+                  Long-term partnership building, delivering and maintaining solutions
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
