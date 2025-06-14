@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -208,8 +209,8 @@ const Index = () => {
             <h4 className="text-2xl font-semibold mb-8 text-center">Our Unique Approach</h4>
             <div className="max-w-6xl mx-auto">
               <div className="relative">
-                {/* Forward Workflow Steps 1-5 */}
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
+                {/* Workflow Steps 1-5 */}
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
                   {workflowSteps.map((step, index) => (
                     <div key={step.number} className="relative">
                       <Card className="border-primary/20 bg-background/60 backdrop-blur h-full">
@@ -222,23 +223,28 @@ const Index = () => {
                         </CardContent>
                       </Card>
                       
-                      {/* Forward arrows between steps 1-4 */}
-                      {index < 4 && (
+                      {/* Forward arrows between steps 1-3 */}
+                      {index < 3 && (
                         <div className="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
                           <ArrowRight className="w-6 h-6 text-primary" />
                         </div>
                       )}
+                      
+                      {/* Forward arrow from step 3 to 4 */}
+                      {index === 3 && (
+                        <div className="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
+                          <ArrowRight className="w-6 h-6 text-primary" />
+                        </div>
+                      )}
+                      
+                      {/* Backward arrow from step 5 to 4 */}
+                      {index === 4 && (
+                        <div className="hidden md:block absolute top-1/2 -left-3 transform -translate-y-1/2 z-10">
+                          <ArrowLeft className="w-6 h-6 text-primary" />
+                        </div>
+                      )}
                     </div>
                   ))}
-                </div>
-                
-                {/* Feedback loop arrow from step 5 back to step 4 */}
-                <div className="hidden md:flex justify-center items-center relative -mt-4">
-                  <div className="absolute right-1/5 flex items-center">
-                    <div className="w-20 h-px bg-primary"></div>
-                    <ArrowLeft className="w-5 h-5 text-primary ml-1" />
-                    <span className="text-xs text-muted-foreground ml-2">Continuous Feedback</span>
-                  </div>
                 </div>
               </div>
             </div>
