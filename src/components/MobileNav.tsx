@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,15 +53,19 @@ const MobileNav = () => {
             {/* Navigation Links */}
             <nav className="flex-1 flex flex-col justify-center px-8 bg-primary">
               <div className="space-y-6">
-                {menuItems.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    className="block text-2xl font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors duration-200 py-4 border-b border-primary-foreground/20"
-                    onClick={toggleMenu}
-                  >
-                    {item.label}
-                  </a>
+                {menuItems.map((item, index) => (
+                  <div key={item.href}>
+                    <a
+                      href={item.href}
+                      className="block text-2xl font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors duration-200 py-4"
+                      onClick={toggleMenu}
+                    >
+                      {item.label}
+                    </a>
+                    {index === menuItems.length - 1 && (
+                      <Separator className="mt-6 bg-primary-foreground/20" />
+                    )}
+                  </div>
                 ))}
               </div>
             </nav>
