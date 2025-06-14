@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -274,7 +275,7 @@ const Index = () => {
         <div className="container mx-auto text-center">
           <h3 className="text-3xl md:text-4xl font-bold mb-4">Global Reach</h3>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Based in India, we provide services worldwide through remote delivery. 
+            Headquartered in India, we provide services worldwide through remote delivery. 
             On-premises services available upon request for clients requiring physical presence.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
@@ -293,7 +294,7 @@ const Index = () => {
                   <span className="text-2xl font-bold text-primary">🏢</span>
                 </div>
                 <h4 className="font-semibold mb-2">India Headquarters</h4>
-                <p className="text-muted-foreground text-sm">Based in India with expertise sourced globally</p>
+                <p className="text-muted-foreground text-sm">Headquartered in India with expertise sourced globally</p>
               </CardContent>
             </Card>
             <Card className="border-primary/20 bg-background/60 backdrop-blur">
