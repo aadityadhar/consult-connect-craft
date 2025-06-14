@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Calculator, Mail, Calendar, Cloud, Shield, Code, Database, Zap, Users, CheckCircle, Star, TrendingUp, Award, ArrowRight } from 'lucide-react';
+import { Calculator, Mail, Calendar, Cloud, Shield, Code, Database, Zap, Users, CheckCircle, Star, TrendingUp, Award, ArrowRight, ArrowDown } from 'lucide-react';
 import CostCalculator from '@/components/CostCalculator';
 import ContactSection from '@/components/ContactSection';
 
@@ -50,7 +50,7 @@ const Index = () => {
     { number: "10+", label: "Projects Delivered", icon: CheckCircle },
     { number: "4+", label: "Years Experience", icon: Star },
     { number: "98%", label: "Client Satisfaction", icon: TrendingUp },
-    { number: "24/7", label: "Support Available", icon: Award }
+    { number: "24/7", label: "Support Available", icon: Mail }
   ];
 
   const workflowSteps = [
@@ -78,7 +78,7 @@ const Index = () => {
           <nav className="hidden md:flex space-x-6">
             <a href="#services" className="text-sm font-medium hover:text-primary transition-colors">Services</a>
             <a href="#pricing" className="text-sm font-medium hover:text-primary transition-colors">Pricing</a>
-            <a href="#about" className="text-sm font-medium hover:text-primary transition-colors">About</a>
+            <a href="#about" className="text-sm font-medium hover:text-primary transition-colors">Why us?</a>
             <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">Contact</a>
           </nav>
         </div>
@@ -173,14 +173,14 @@ const Index = () => {
       </section>
 
       {/* Why Choose Dharesque */}
-      <section className="py-20 px-4">
+      <section id="about" className="py-20 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <h3 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Dharesque?</h3>
           </div>
           
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          <div className="max-w-4xl mx-auto mb-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="flex items-start space-x-3">
                 <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                 <p className="text-muted-foreground">No hidden fees or overhead costs</p>
@@ -205,7 +205,7 @@ const Index = () => {
           </div>
 
           {/* Our Unique Approach Workflow */}
-          <div className="mb-16">
+          <div className="mb-20">
             <h4 className="text-2xl font-semibold mb-8 text-center">Our Unique Approach</h4>
             <div className="max-w-5xl mx-auto">
               <div className="relative">
@@ -233,13 +233,13 @@ const Index = () => {
                   ))}
                 </div>
                 
-                {/* Feedback Loop Arrow (from step 5 to step 4) */}
-                <div className="hidden md:block absolute top-full mt-4 left-0 right-0">
-                  <div className="flex justify-between items-center max-w-5xl mx-auto px-8">
-                    <div className="w-3/5"></div>
-                    <div className="flex items-center text-primary text-sm">
-                      <span className="mr-2">Continuous feedback loop</span>
-                      <ArrowRight className="w-4 h-4 transform rotate-180" />
+                {/* Feedback Arrow from step 5 to step 4 */}
+                <div className="hidden md:block absolute top-full mt-6">
+                  <div className="flex justify-center items-center">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-32 h-px bg-primary"></div>
+                      <ArrowDown className="w-5 h-5 text-primary transform rotate-180" />
+                      <div className="w-32 h-px bg-primary"></div>
                     </div>
                   </div>
                 </div>
