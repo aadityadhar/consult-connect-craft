@@ -29,10 +29,10 @@ const MobileNav = () => {
 
       {/* Full Screen Overlay Menu */}
       {isOpen && (
-        <div className="fixed inset-0 bg-primary z-50 md:hidden">
-          <div className="flex flex-col h-full">
+        <div className="fixed inset-0 bg-primary z-50 md:hidden overflow-hidden">
+          <div className="flex flex-col h-full w-full bg-primary">
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-primary-foreground/20">
+            <div className="flex items-center justify-between p-6 border-b border-primary-foreground/20 bg-primary">
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 bg-primary-foreground/20 rounded-lg flex items-center justify-center">
                   <span className="text-primary-foreground font-bold">D</span>
@@ -50,7 +50,7 @@ const MobileNav = () => {
             </div>
 
             {/* Navigation Links */}
-            <nav className="flex-1 flex flex-col justify-center px-8">
+            <nav className="flex-1 flex flex-col justify-center px-8 bg-primary">
               <div className="space-y-6">
                 {menuItems.map((item) => (
                   <a
@@ -66,7 +66,7 @@ const MobileNav = () => {
             </nav>
 
             {/* Footer */}
-            <div className="p-6 border-t border-primary-foreground/20 text-center">
+            <div className="p-6 border-t border-primary-foreground/20 text-center bg-primary">
               <p className="text-sm text-primary-foreground/80">
                 Ready to get started? Contact us today.
               </p>
