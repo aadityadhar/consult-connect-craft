@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -61,6 +62,13 @@ const Index = () => {
     { number: 5, title: "Continuous Engagement", description: "Our administrators engage with your stakeholders on a weekly basis to ensure this process is consistently followed, fostering collaboration and alignment" }
   ];
 
+  const scrollToPricing = () => {
+    const pricingSection = document.getElementById('pricing');
+    if (pricingSection) {
+      pricingSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -100,7 +108,7 @@ const Index = () => {
             delivering better, faster, and more cost-effective services than the competition.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-12 px-4">
-            <Button size="lg" className="px-6 sm:px-8 shadow-lg min-h-[48px]">
+            <Button size="lg" className="px-6 sm:px-8 shadow-lg min-h-[48px]" onClick={scrollToPricing}>
               <Calculator className="mr-2 h-5 w-5" />
               Explore Pricing
             </Button>

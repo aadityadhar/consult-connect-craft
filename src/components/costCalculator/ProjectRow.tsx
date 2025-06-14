@@ -119,20 +119,6 @@ const ProjectRow = ({ row, canRemove, onUpdate, onRemove }: ProjectRowProps) => 
           className="w-full"
         />
       </TableCell>
-      <TableCell>
-        <div className="flex items-center space-x-2">
-          {canRemove && (
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() => onRemove(row.id)}
-              className="h-8 px-2 text-muted-foreground hover:text-foreground"
-            >
-              <Minus className="h-4 w-4" />
-            </Button>
-          )}
-        </div>
-      </TableCell>
     </TableRow>
   );
 };

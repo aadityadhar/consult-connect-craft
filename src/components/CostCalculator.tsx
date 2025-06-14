@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -99,7 +100,6 @@ const CostCalculator = () => {
                   <TableHead>Strength</TableHead>
                   <TableHead>Region</TableHead>
                   <TableHead>Project Duration (months)</TableHead>
-                  <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
