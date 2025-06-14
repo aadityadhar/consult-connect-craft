@@ -25,21 +25,25 @@ const CostCalculator = () => {
       duration: 1
     };
     console.log('Adding new row:', newRow);
-    setRows([...rows, newRow]);
+    setRows(prev => [...prev, newRow]);
   };
 
   const removeRow = (id: string) => {
     if (rows.length > 1) {
       console.log('Removing row:', id);
-      setRows(rows.filter(row => row.id !== id));
+      setRows(prev => prev.filter(row => row.id !== id));
     }
   };
 
   const updateRow = (id: string, field: keyof ProjectRowType, value: string | number) => {
     console.log('Updating row:', { id, field, value });
-    setRows(rows.map(row => 
-      row.id === id ? { ...row, [field]: value } : row
-    ));
+    setRows(prev => {
+      const updated = prev.map(row => 
+        row.id === id ? { ...row, [field]: value } : row
+      );
+      console.log('Updated rows:', updated);
+      return updated;
+    });
   };
 
   const calculateTotalCost = (): CostResults => {
