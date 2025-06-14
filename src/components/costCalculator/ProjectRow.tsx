@@ -15,15 +15,25 @@ interface ProjectRowProps {
 }
 
 const ProjectRow = ({ row, canRemove, onUpdate, onRemove }: ProjectRowProps) => {
+  console.log('ProjectRow render:', { row, roleLevel: row.roleLevel, experienceLevel: row.experienceLevel });
+
+  const handleRoleLevelChange = (value: string) => {
+    console.log('Role level changing to:', value);
+    onUpdate(row.id, 'roleLevel', value);
+    onUpdate(row.id, 'experienceLevel', ''); // Reset experience when role changes
+  };
+
+  const handleExperienceLevelChange = (value: string) => {
+    console.log('Experience level changing to:', value);
+    onUpdate(row.id, 'experienceLevel', value);
+  };
+
   return (
     <TableRow>
       <TableCell>
         <Select 
           value={row.roleLevel}
-          onValueChange={(value) => {
-            onUpdate(row.id, 'roleLevel', value);
-            onUpdate(row.id, 'experienceLevel', ''); // Reset experience when role changes
-          }}
+          onValueChange={handleRoleLevelChange}
         >
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select role" />
@@ -38,8 +48,8 @@ const ProjectRow = ({ row, canRemove, onUpdate, onRemove }: ProjectRowProps) => 
       </TableCell>
       <TableCell>
         <Select 
-          value={row.experienceLevel} 
-          onValueChange={(value) => onUpdate(row.id, 'experienceLevel', value)}
+          value={row.experienceLevel}
+          onValueChange={handleExperienceLevelChange}
           disabled={!row.roleLevel}
         >
           <SelectTrigger className="w-full">
@@ -86,7 +96,7 @@ const ProjectRow = ({ row, canRemove, onUpdate, onRemove }: ProjectRowProps) => 
       </TableCell>
       <TableCell>
         <Select 
-          value={row.region} 
+          value={row.region}
           onValueChange={(value) => onUpdate(row.id, 'region', value)}
         >
           <SelectTrigger className="w-full">

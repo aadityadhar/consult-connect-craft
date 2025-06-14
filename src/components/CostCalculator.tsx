@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -14,6 +13,8 @@ const CostCalculator = () => {
     { id: '1', roleLevel: '', experienceLevel: '', strength: 1, region: '', duration: 1 }
   ]);
 
+  console.log('CostCalculator render, rows:', rows);
+
   const addRow = () => {
     const newRow: ProjectRowType = {
       id: Date.now().toString(),
@@ -23,16 +24,19 @@ const CostCalculator = () => {
       region: '',
       duration: 1
     };
+    console.log('Adding new row:', newRow);
     setRows([...rows, newRow]);
   };
 
   const removeRow = (id: string) => {
     if (rows.length > 1) {
+      console.log('Removing row:', id);
       setRows(rows.filter(row => row.id !== id));
     }
   };
 
   const updateRow = (id: string, field: keyof ProjectRowType, value: string | number) => {
+    console.log('Updating row:', { id, field, value });
     setRows(rows.map(row => 
       row.id === id ? { ...row, [field]: value } : row
     ));
