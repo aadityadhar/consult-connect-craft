@@ -71,7 +71,7 @@ const Index = () => {
             </div>
             <div>
               <h1 className="text-xl font-bold">DHARESQUE</h1>
-              <p className="text-sm text-muted-foreground">Consulting Services</p>
+              <p className="text-sm text-muted-foreground">Consulting Services (Est. 2021)</p>
             </div>
           </div>
           <nav className="hidden md:flex space-x-6">
@@ -321,7 +321,7 @@ const Index = () => {
             Cutting-edge IT solutions that drive business growth
           </p>
           <p className="text-sm text-muted-foreground mb-2">
-            © 2024 Dharesque Private Limited. All rights reserved.
+            © 2021 Dharesque Private Limited. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground">
             GSTIN : 01AAJCD2899N1Z6
