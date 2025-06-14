@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Calculator, Mail, Calendar, Cloud, Shield, Code, Database, Zap, Users, CheckCircle, Star, TrendingUp, Award, ArrowRight, ArrowLeft } from 'lucide-react';
 import CostCalculator from '@/components/CostCalculator';
 import ContactSection from '@/components/ContactSection';
+import MobileNav from '@/components/MobileNav';
 
 const Index = () => {
   const services = [
@@ -70,8 +71,8 @@ const Index = () => {
               <span className="text-primary-foreground font-bold text-lg">D</span>
             </div>
             <div>
-              <h1 className="text-xl font-bold">DHARESQUE</h1>
-              <p className="text-sm text-muted-foreground">Consulting Services</p>
+              <h1 className="text-lg sm:text-xl font-bold">DHARESQUE</h1>
+              <p className="text-xs sm:text-sm text-muted-foreground">Consulting Services</p>
             </div>
           </div>
           <nav className="hidden md:flex space-x-6">
@@ -80,32 +81,33 @@ const Index = () => {
             <a href="#about" className="text-sm font-medium hover:text-primary transition-colors">Why us?</a>
             <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">Contact</a>
           </nav>
+          <MobileNav />
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-4 bg-gradient-to-br from-background via-muted/20 to-background">
+      <section className="py-12 sm:py-20 px-4 bg-gradient-to-br from-background via-muted/20 to-background">
         <div className="container mx-auto text-center">
-          <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-6">
-            <Award className="w-4 h-4 mr-2" />
+          <div className="inline-flex items-center px-3 sm:px-4 py-2 bg-primary/10 rounded-full text-xs sm:text-sm font-medium text-primary mb-4 sm:mb-6">
+            <Award className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
             Trusted by 4 Companies Worldwide
           </div>
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">
             Delivering Success Stories
           </h2>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4">
             We utilize cutting-edge technology to create impactful IT solutions that drive business growth - 
             delivering better, faster, and more cost-effective services than the competition.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" className="px-8 shadow-lg">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-12 px-4">
+            <Button size="lg" className="px-6 sm:px-8 shadow-lg min-h-[48px]">
               <Calculator className="mr-2 h-5 w-5" />
               Explore Pricing
             </Button>
           </div>
           
           {/* Stats Section */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto px-4">
             {stats.map((stat, index) => (
               <Card key={index} className="border-primary/20 bg-background/60 backdrop-blur">
                 <CardContent className="p-6 text-center">
@@ -120,15 +122,15 @@ const Index = () => {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 px-4 bg-muted/30">
+      <section id="services" className="py-12 sm:py-20 px-4 bg-muted/30">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h3>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <div className="text-center mb-12 sm:mb-16">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Our Services</h3>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
               Comprehensive IT solutions delivered by expert teams across the globe
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {services.map((service, index) => (
               <Card key={index} className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-primary/10">
                 <CardHeader>
@@ -155,11 +157,11 @@ const Index = () => {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="py-20 px-4 bg-muted/30">
+      <section id="pricing" className="py-12 sm:py-20 px-4 bg-muted/30">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4">Pricing</h3>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <div className="text-center mb-12 sm:mb-16">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Pricing</h3>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
               Get an instant estimate for your project based on team size, expertise level, and region
             </p>
           </div>
@@ -168,14 +170,14 @@ const Index = () => {
       </section>
 
       {/* Why Choose Dharesque */}
-      <section id="about" className="py-20 px-4">
+      <section id="about" className="py-12 sm:py-20 px-4">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Dharesque?</h3>
+          <div className="text-center mb-12 sm:mb-16">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Why Choose Dharesque?</h3>
           </div>
           
-          <div className="max-w-4xl mx-auto mb-32">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="max-w-4xl mx-auto mb-16 sm:mb-32">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4">
               <div className="flex items-start space-x-3">
                 <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                 <p className="text-muted-foreground">No hidden fees or overhead costs</p>
@@ -200,12 +202,12 @@ const Index = () => {
           </div>
 
           {/* Our Unique Approach Workflow */}
-          <div className="mb-32">
-            <h4 className="text-2xl font-semibold mb-8 text-center">Our Unique Approach</h4>
+          <div className="mb-16 sm:mb-32">
+            <h4 className="text-xl sm:text-2xl font-semibold mb-6 sm:mb-8 text-center">Our Unique Approach</h4>
             <div className="max-w-6xl mx-auto">
               <div className="relative">
-                {/* Workflow Steps 1-5 */}
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+                {/* Mobile: Stack vertically, Desktop: Show workflow with arrows */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 sm:gap-6">
                   {workflowSteps.map((step, index) => (
                     <div key={step.number} className="relative">
                       <Card className="border-primary/20 bg-background/60 backdrop-blur h-full">
@@ -246,8 +248,8 @@ const Index = () => {
           </div>
 
           {/* Notable Achievements */}
-          <div className="text-center">
-            <h4 className="text-2xl font-semibold mb-6">Notable Achievements</h4>
+          <div className="text-center px-4">
+            <h4 className="text-xl sm:text-2xl font-semibold mb-6">Notable Achievements</h4>
             <Card className="border-primary/20 bg-gradient-to-br from-background to-muted/20 max-w-md mx-auto">
               <CardHeader>
                 <CardTitle className="flex items-center justify-center">
@@ -266,14 +268,14 @@ const Index = () => {
       </section>
 
       {/* Global Reach */}
-      <section className="py-20 px-4 bg-muted/30">
+      <section className="py-12 sm:py-20 px-4 bg-muted/30">
         <div className="container mx-auto text-center">
-          <h3 className="text-3xl md:text-4xl font-bold mb-4">Global Reach</h3>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Global Reach</h3>
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8 px-4">
             Headquartered in India, we provide services worldwide through remote delivery. 
             On-premises services available upon request for clients requiring physical presence.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto">
             <Card className="border-primary/20 bg-background/60 backdrop-blur">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -309,16 +311,16 @@ const Index = () => {
       <ContactSection />
 
       {/* Footer */}
-      <footer className="bg-muted py-12 px-4 border-t">
+      <footer className="bg-muted py-8 sm:py-12 px-4 border-t">
         <div className="container mx-auto">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-lg flex items-center justify-center">
                 <span className="text-primary-foreground font-bold">D</span>
               </div>
-              <span className="text-lg font-semibold">Dharesque Private Limited</span>
+              <span className="text-base sm:text-lg font-semibold text-center sm:text-left">Dharesque Private Limited</span>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs sm:text-sm text-muted-foreground text-center">
               © 2022 Dharesque Private Limited. All rights reserved.
             </p>
           </div>
