@@ -11,7 +11,7 @@ const ContactSection = () => {
         <div className="text-center mb-16">
           <h3 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h3>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Ready to discuss your project? Contact us via email or schedule a consultation call.
+            Ready to discuss your project? Contact us via email or schedule a consultation call. We respond within 24 hours.
           </p>
         </div>
         
@@ -47,21 +47,11 @@ const ContactSection = () => {
               </div>
               
               <div>
-                <h5 className="font-medium mb-1">Location</h5>
-                <p className="text-muted-foreground">India (Global Remote Services)</p>
-              </div>
-              
-              <div>
-                <h5 className="font-medium mb-1">Business Hours</h5>
+                <h5 className="font-medium mb-1">Sales Team Business Hours</h5>
                 <p className="text-muted-foreground">
                   Monday - Friday: 9:00 AM - 6:00 PM IST<br />
-                  Available for global time zones
+                  (Development teams work across global time zones)
                 </p>
-              </div>
-              
-              <div>
-                <h5 className="font-medium mb-1">Response Time</h5>
-                <p className="text-muted-foreground">Within 24 hours</p>
               </div>
             </CardContent>
           </Card>
