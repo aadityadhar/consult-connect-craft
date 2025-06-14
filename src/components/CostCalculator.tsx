@@ -16,7 +16,28 @@ const CostCalculator = () => {
   const [region, setRegion] = useState('APAC');
   const [showResults, setShowResults] = useState(false);
 
-  // Regional cost multipliers and market rates (sample data)
+  // Our rates structure based on your provided data
+  const ourRates = {
+    junior: {
+      '0-1': 10,
+      '1-2': 15,
+      '2-3': 20
+    },
+    mid: {
+      '4-5': 30,
+      '5-7': 40
+    },
+    senior: {
+      '7-10': 50,
+      '10+': 75
+    },
+    sme: {
+      '10+': 75,
+      'lead': 100
+    }
+  };
+
+  // Regional market rates and multipliers
   const regionData = {
     'APAC': {
       name: 'Asia Pacific',
@@ -61,6 +82,13 @@ const CostCalculator = () => {
 
   const selectedRegionData = regionData[region];
 
+  // Calculate our average rates for display
+  const getAverageOurRate = (role) => {
+    const rates = ourRates[role];
+    const values = Object.values(rates);
+    return Math.round(values.reduce((a, b) => a + b, 0) / values.length);
+  };
+
   return (
     <div className="max-w-6xl mx-auto">
       <Card className="border-primary/20">
@@ -85,6 +113,9 @@ const CostCalculator = () => {
                 onChange={(e) => setJuniorCount(Number(e.target.value))}
                 placeholder="0"
               />
+              <div className="text-xs text-muted-foreground">
+                0-3 years experience
+              </div>
             </div>
             
             <div className="space-y-2">
@@ -97,6 +128,9 @@ const CostCalculator = () => {
                 onChange={(e) => setMidCount(Number(e.target.value))}
                 placeholder="0"
               />
+              <div className="text-xs text-muted-foreground">
+                4-7 years experience
+              </div>
             </div>
             
             <div className="space-y-2">
@@ -109,6 +143,9 @@ const CostCalculator = () => {
                 onChange={(e) => setSeniorCount(Number(e.target.value))}
                 placeholder="0"
               />
+              <div className="text-xs text-muted-foreground">
+                7+ years experience
+              </div>
             </div>
             
             <div className="space-y-2">
@@ -121,6 +158,9 @@ const CostCalculator = () => {
                 onChange={(e) => setSmeCount(Number(e.target.value))}
                 placeholder="0"
               />
+              <div className="text-xs text-muted-foreground">
+                10+ years, Lead/Architect
+              </div>
             </div>
             
             <div className="space-y-2">
@@ -158,29 +198,49 @@ const CostCalculator = () => {
           <div className="bg-muted/30 rounded-lg p-6">
             <h4 className="text-lg font-semibold mb-4 flex items-center">
               <TrendingUp className="mr-2 h-5 w-5 text-primary" />
-              Regional Market Comparison
+              Regional Market Comparison vs Our Rates
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {Object.entries(regionData).map(([key, data]) => (
                 <Card key={key} className={`${region === key ? 'border-primary bg-primary/5' : 'border-muted'} transition-all`}>
                   <CardContent className="p-4">
-                    <h5 className="font-semibold mb-2">{data.name}</h5>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Junior:</span>
-                        <span>${data.marketRates.junior}/hr</span>
+                    <h5 className="font-semibold mb-3">{data.name}</h5>
+                    <div className="space-y-3 text-sm">
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span className="text-muted-foreground">Junior:</span>
+                          <div className="text-right">
+                            <div className="line-through text-muted-foreground">${data.marketRates.junior}/hr</div>
+                            <div className="text-primary font-medium">${getAverageOurRate('junior')}/hr</div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Mid-Level:</span>
-                        <span>${data.marketRates.mid}/hr</span>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span className="text-muted-foreground">Mid-Level:</span>
+                          <div className="text-right">
+                            <div className="line-through text-muted-foreground">${data.marketRates.mid}/hr</div>
+                            <div className="text-primary font-medium">${getAverageOurRate('mid')}/hr</div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Senior:</span>
-                        <span>${data.marketRates.senior}/hr</span>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span className="text-muted-foreground">Senior:</span>
+                          <div className="text-right">
+                            <div className="line-through text-muted-foreground">${data.marketRates.senior}/hr</div>
+                            <div className="text-primary font-medium">${getAverageOurRate('senior')}/hr</div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">SME:</span>
-                        <span>${data.marketRates.sme}/hr</span>
+                      <div>
+                        <div className="flex justify-between mb-1">
+                          <span className="text-muted-foreground">SME:</span>
+                          <div className="text-right">
+                            <div className="line-through text-muted-foreground">${data.marketRates.sme}/hr</div>
+                            <div className="text-primary font-medium">${getAverageOurRate('sme')}/hr</div>
+                          </div>
+                        </div>
                       </div>
                       <div className="pt-2 border-t">
                         <div className="flex justify-between font-medium text-primary">
@@ -192,6 +252,72 @@ const CostCalculator = () => {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </div>
+
+          {/* Detailed Rate Breakdown */}
+          <div className="bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg p-6">
+            <h4 className="text-lg font-semibold mb-4 flex items-center">
+              <DollarSign className="mr-2 h-5 w-5 text-primary" />
+              Our Detailed Rate Structure
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div>
+                <h5 className="font-semibold mb-3 text-primary">Junior Resources</h5>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span>0-1 years:</span>
+                    <span className="font-medium">${ourRates.junior['0-1']}/hr</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>1-2 years:</span>
+                    <span className="font-medium">${ourRates.junior['1-2']}/hr</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>2-3 years:</span>
+                    <span className="font-medium">${ourRates.junior['2-3']}/hr</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h5 className="font-semibold mb-3 text-primary">Mid-Level Resources</h5>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span>4-5 years:</span>
+                    <span className="font-medium">${ourRates.mid['4-5']}/hr</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>5-7 years:</span>
+                    <span className="font-medium">${ourRates.mid['5-7']}/hr</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h5 className="font-semibold mb-3 text-primary">Senior Level Resources</h5>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span>7-10 years:</span>
+                    <span className="font-medium">${ourRates.senior['7-10']}/hr</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>10+ years:</span>
+                    <span className="font-medium">${ourRates.senior['10+']}/hr</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h5 className="font-semibold mb-3 text-primary">Subject Matter Experts</h5>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span>10+ years:</span>
+                    <span className="font-medium">${ourRates.sme['10+']}/hr</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Lead/Architect:</span>
+                    <span className="font-medium">${ourRates.sme['lead']}/hr</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           
