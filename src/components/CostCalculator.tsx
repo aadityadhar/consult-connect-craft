@@ -129,7 +129,7 @@ const CostCalculator = () => {
                   <TableRow key={row.id}>
                     <TableCell>
                       <Select 
-                        value={row.roleLevel} 
+                        value={row.roleLevel}
                         onValueChange={(value) => {
                           updateRow(row.id, 'roleLevel', value);
                           updateRow(row.id, 'experienceLevel', ''); // Reset experience when role changes
