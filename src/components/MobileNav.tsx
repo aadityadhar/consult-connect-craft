@@ -29,12 +29,12 @@ const MobileNav = () => {
 
       {isOpen && (
         <div className="fixed inset-0 top-16 z-50 bg-background/95 backdrop-blur-sm md:hidden">
-          <nav className="flex flex-col space-y-4 p-6">
+          <nav className="flex flex-col space-y-2 p-6">
             {menuItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="text-lg font-medium hover:text-primary transition-colors py-2"
+                className="text-lg font-medium hover:text-primary transition-colors py-3 px-4 rounded-lg bg-card hover:bg-accent border border-border shadow-sm"
                 onClick={toggleMenu}
               >
                 {item.label}

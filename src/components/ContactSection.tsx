@@ -5,6 +5,14 @@ import { Button } from '@/components/ui/button';
 import { Mail, Calendar } from 'lucide-react';
 
 const ContactSection = () => {
+  const handleBookMeeting = () => {
+    // You can replace this URL with your preferred scheduling service:
+    // - Calendly: https://calendly.com/yourusername
+    // - Cal.com: https://cal.com/yourusername
+    // - Acuity Scheduling, etc.
+    window.open('https://calendly.com/dharesque', '_blank');
+  };
+
   return (
     <section id="contact" className="py-20 px-4 bg-muted/30">
       <div className="container mx-auto">
@@ -28,7 +36,7 @@ const ContactSection = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button className="w-full" size="lg" variant="outline">
+              <Button className="w-full" size="lg" variant="outline" onClick={handleBookMeeting}>
                 <Calendar className="mr-2 h-4 w-4" />
                 Book a Meeting
               </Button>
