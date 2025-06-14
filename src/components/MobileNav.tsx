@@ -57,7 +57,7 @@ const MobileNav = () => {
                   <div key={item.href}>
                     <a
                       href={item.href}
-                      className="block text-2xl font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors duration-200 py-4"
+                      className="block text-2xl font-medium text-primary-foreground hover:text-primary-foreground/80 transition-colors duration-200 py-4 border-b border-primary-foreground/20"
                       onClick={toggleMenu}
                     >
                       {item.label}
