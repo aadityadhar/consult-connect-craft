@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -47,25 +46,10 @@ const Index = () => {
   ];
 
   const stats = [
-    { number: "100+", label: "Projects Delivered", icon: CheckCircle },
+    { number: "10+", label: "Projects Delivered", icon: CheckCircle },
     { number: "4+", label: "Years Experience", icon: Star },
-    { number: "95%", label: "Client Satisfaction", icon: TrendingUp },
+    { number: "98%", label: "Client Satisfaction", icon: TrendingUp },
     { number: "24/7", label: "Support Available", icon: Award }
-  ];
-
-  const testimonials = [
-    {
-      name: "Sarah Johnson",
-      role: "CTO, TechCorp",
-      content: "Dharesque delivered exceptional results on our cloud migration project. Their expertise and attention to detail exceeded our expectations.",
-      rating: 5
-    },
-    {
-      name: "Michael Chen",
-      role: "VP Engineering, DataFlow",
-      content: "The team's technical skills and communication were outstanding. They delivered our project on time and within budget.",
-      rating: 5
-    }
   ];
 
   return (
@@ -96,7 +80,7 @@ const Index = () => {
         <div className="container mx-auto text-center">
           <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-sm font-medium text-primary mb-6">
             <Award className="w-4 h-4 mr-2" />
-            Trusted by 100+ Companies Worldwide
+            Trusted by 4 Companies Worldwide
           </div>
           <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">
             Cutting-Edge IT Solutions
@@ -166,36 +150,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4">What Our Clients Say</h3>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Don't just take our word for it - hear from our satisfied clients
-            </p>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="border-primary/20 bg-gradient-to-br from-background to-muted/20">
-                <CardContent className="p-6">
-                  <div className="flex mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-primary text-primary" />
-                    ))}
-                  </div>
-                  <p className="text-muted-foreground mb-4 italic">"{testimonial.content}"</p>
-                  <div>
-                    <p className="font-semibold">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Pricing */}
       <section id="pricing" className="py-20 px-4 bg-muted/30">
         <div className="container mx-auto">
@@ -253,7 +207,7 @@ const Index = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <Award className="w-5 h-5 mr-2 text-primary" />
-                    Proven Track Record
+                    Notable Achievements
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
