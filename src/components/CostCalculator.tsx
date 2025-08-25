@@ -100,7 +100,7 @@ const CostCalculator = () => {
                   <TableHead>Strength</TableHead>
                   <TableHead>Region</TableHead>
                   <TableHead>Project Duration (months)</TableHead>
-                  <TableHead>Actions</TableHead>
+                  {rows.length > 1 && <TableHead>Actions</TableHead>}
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -109,6 +109,7 @@ const CostCalculator = () => {
                     key={row.id}
                     row={row}
                     canRemove={rows.length > 1}
+                    showActions={rows.length > 1}
                     onUpdate={updateRow}
                     onRemove={removeRow}
                   />

@@ -10,11 +10,12 @@ import { ProjectRow as ProjectRowType } from '@/types/costCalculator';
 interface ProjectRowProps {
   row: ProjectRowType;
   canRemove: boolean;
+  showActions: boolean;
   onUpdate: (id: string, field: keyof ProjectRowType, value: string | number) => void;
   onRemove: (id: string) => void;
 }
 
-const ProjectRow = ({ row, canRemove, onUpdate, onRemove }: ProjectRowProps) => {
+const ProjectRow = ({ row, canRemove, showActions, onUpdate, onRemove }: ProjectRowProps) => {
   console.log('ProjectRow render:', { row, roleLevel: row.roleLevel, experienceLevel: row.experienceLevel });
 
   const handleRoleLevelChange = (value: string) => {
@@ -119,17 +120,19 @@ const ProjectRow = ({ row, canRemove, onUpdate, onRemove }: ProjectRowProps) => 
           className="w-full"
         />
       </TableCell>
-      <TableCell>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => onRemove(row.id)}
-          disabled={!canRemove}
-          className="h-8 w-8 p-0"
-        >
-          <Minus className="h-4 w-4" />
-        </Button>
-      </TableCell>
+      {showActions && (
+        <TableCell>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onRemove(row.id)}
+            disabled={!canRemove}
+            className="h-8 w-8 p-0"
+          >
+            <Minus className="h-4 w-4" />
+          </Button>
+        </TableCell>
+      )}
     </TableRow>
   );
 };
