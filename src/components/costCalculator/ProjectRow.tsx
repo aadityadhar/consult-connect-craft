@@ -119,6 +119,17 @@ const ProjectRow = ({ row, canRemove, onUpdate, onRemove }: ProjectRowProps) => 
           className="w-full"
         />
       </TableCell>
+      <TableCell>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => onRemove(row.id)}
+          disabled={!canRemove}
+          className="h-8 w-8 p-0"
+        >
+          <Minus className="h-4 w-4" />
+        </Button>
+      </TableCell>
     </TableRow>
   );
 };

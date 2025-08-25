@@ -100,6 +100,7 @@ const CostCalculator = () => {
                   <TableHead>Strength</TableHead>
                   <TableHead>Region</TableHead>
                   <TableHead>Project Duration (months)</TableHead>
+                  <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
